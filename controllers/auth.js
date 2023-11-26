@@ -13,17 +13,18 @@ exports.register = async (req, res) => {
     }
 
     let encryptedPassword = await bcrypt.hash(password, 10);
-
     // Create user in our database
     counter.incrementCounter();
     idUser = counter.getCurrentCount();
     const user = await User.create({
       idUser:idUser,
-      password: encryptedPassword,
       token:"",
       role:"100",
       ...req.body,
     });
+
+    await user.save();
+
     const token = jwt.sign(
       { user_id: user._id, email },
       process.env.TOKEN_KEY,
@@ -31,7 +32,8 @@ exports.register = async (req, res) => {
     );
     // save user token
    user.token = token
-   
+   user.password = encryptedPassword
+     await user.save(); 
     // return new user
     res.status(201).json(user);
   } catch (error) {
