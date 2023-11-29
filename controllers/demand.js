@@ -2,24 +2,24 @@ const formatDate = require("../Utils/DateUtils/dateFormat");
 const counter = require("../Utils/counter/counter");
 const Demand = require("../model/demand");
 
-
+ 
 exports.getAllDemand = (req, res, next) => {
-  
+   
   Demand.find()
     .then((data) => {
-      res.status(202).json(data); 
-    })
+      res.status(202).json(data);  
+    }) 
     .catch((err) => res.status(402).json({ err: err }));
-};
-
+};            
+             
 exports.getDemandById = (req, res, next) => {
   Demand.find({idDemand:req.params.id})
     .then((data) => {
       res.status(203).json(data);
-    })
+    }) 
     .catch((err) => res.status(403).json({ err: err }));
-};
-
+};   
+  
 exports.getDemandByUser = (req, res, next) => {
   Demand.find({ idUser: req.params.idUser })
     .then((data) => res.status(203).json(data))

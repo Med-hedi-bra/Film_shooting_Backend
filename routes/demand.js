@@ -5,7 +5,6 @@ const auth = require("../middleware/auth");
 const multer = require("multer");
 const multerFile = require("../middleware/multerFile");
 
-// router.get("/",auth, DemandController.showAllHouses);
 router.get("/", DemandController.getAllDemand);
 router.get("/:id", DemandController.getDemandById);
 router.get("/user/:idUser", DemandController.getDemandByUser);

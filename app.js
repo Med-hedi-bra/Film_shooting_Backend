@@ -7,13 +7,15 @@ const bp = require("body-parser");
 const path = require("path");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const fs = require('fs');
-
+const fs = require("fs");
+const swaggerUi = require("swagger-ui-express");
+const swaggerjsdoc = require("swagger-jsdoc");
 require("dotenv").config();
+    
 
-// create the folder that containe pdfs if does not exist 
-const folderName = 'docs';
-fs.access(folderName, (err) => { 
+// create the folder that containe pdfs if does not exist
+const folderName = "docs";
+fs.access(folderName, (err) => {
   if (err) {
     fs.mkdir(folderName, (error) => {
       if (error) {
@@ -29,19 +31,46 @@ fs.access(folderName, (err) => {
 
 // DB connection
 mongoose
-  .connect(process.env.MONGO_URL, {   
+  .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
   .then(() => console.log("Connexion à MongoDB réussie !"))
   .catch(() => console.log("Connexion à MongoDB échouée !"));
 
-app.use(cors());
+// create swagger documentation options
+const options = {
+  definition: {
+    info: { 
+      title: "Film Shooting API Documentation",
+      description: "",
+      contact: {
+        name: "Mohamed Hedi Bra", 
+        email: "mohamedhedibra8@gmail.com",
+      }, 
+    },
+    schemes: ["http", "https"],
+    servers: [
+      {
+        url: "http://localhost:8080/",
+      },
+    ], 
+  },
+  apis: ['./documentation/*.js'],
+};
+const specs = swaggerjsdoc(options);
 
+
+
+
+    
+app.use(cors());
 app.use(bp.json());
 app.use("/docs", express.static(path.join(__dirname, "docs")));
 app.use("/demand", demandRoute);
 app.use("/preDemand", preDemandRoute);
 app.use("/auth", authRoute);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
-module.exports = app;
+ 
+module.exports = app; 
