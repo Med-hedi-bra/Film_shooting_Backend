@@ -43,6 +43,7 @@ exports.addDemand = (req, res, next) => {
     idUser:parseInt(demandRequest.idUser),
     dateCreation:Date.now(),
     contratTravailFile:contratArray,
+    state:"Pending",
     
 
     scenarioFile:
@@ -209,3 +210,32 @@ exports.deleteDemand = (req, res, next) => {
     )
     .catch((err) => res.status(405).json(err));
 };
+
+exports.acceptDemand = (req, res, next) => {
+  Demand.updateOne(
+    { idDemand: req.params.id },
+    {
+      $set: {
+        state: "Accepted",
+      },
+    }
+  )
+    .then(() =>
+      res.status(204).json({ messages: "Demand successfully accepted" })
+    )
+    .catch((err) => res.status(404).json(err));
+}
+exports.rejectDemand = (req, res, next) => {
+  Demand.updateOne(
+    { idDemand: req.params.id },
+    {
+      $set: {
+        state: "Rejected",
+      },
+    }
+  )
+    .then(() =>
+      res.status(204).json({ messages: "Demand successfully rejected" })
+    )
+    .catch((err) => res.status(404).json(err));
+} 

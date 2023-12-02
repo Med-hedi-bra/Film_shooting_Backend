@@ -46,8 +46,25 @@
  *     responses:
  *       '201':
  *         description: OK
- *         schema:
+ *         schema: 
  *              $ref: '#/definitions/schemas/UserResponse'
+ *       '400':
+ *         description: Bad request
+ *       '500':
+ *         description: Internal server error
+ * /auth/user/{idUser}:
+ *   get:
+ *     summary: Get the user detail by id
+ *     tags:
+ *       - Authentication Route
+ *     description: This API is for getting a user detail by id
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       '200':
+ *         description: OK
+ *         schema:
+ *             $ref: '#/definitions/schemas/UserResponse'
  *       '400':
  *         description: Bad request
  *       '500':

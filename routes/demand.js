@@ -11,6 +11,8 @@ router.get("/user/:idUser", DemandController.getDemandByUser);
 router.post("/",multerFile, DemandController.addDemand);
 router.put("/:id",multerFile, DemandController.updateDemand);
 router.delete("/:id", DemandController.deleteDemand);
+router.put("/accept/:id", DemandController.acceptDemand);
+router.put("/reject/:id", DemandController.rejectDemand);
 
 
 

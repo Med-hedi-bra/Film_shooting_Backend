@@ -117,6 +117,38 @@
  *         description: Bad request
  *       '500':
  *         description: Internal server error
+ * /demand/accept/{idDemand}:
+ *   put:
+ *     summary: Set the state of demand to accepted
+ *     tags:
+ *       - Demands Route
+ *     description: This API for setting the state of demand to accepted
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       '200':
+ *         description: OK
+ *       '400':
+ *         description: Bad request
+ *       '500':
+ *         description: Internal server error
+ * 
+ * /demand/reject/{idDemand}:
+ *   put:
+ *     summary: Set the state of demand to rejected
+ *     tags:
+ *       - Demands Route
+ *     description: This API for setting the state of demand to rejected
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       '200':
+ *         description: OK
+ *       '400':
+ *         description: Bad request
+ *       '500':
+ *         description: Internal server error
+ * 
  */
 
 

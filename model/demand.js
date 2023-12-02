@@ -3,6 +3,7 @@ const demand = mongoose.Schema({
   idUser: { type: Number },
   idDemand:{type:Number},
   dateCreation:{type:Date},
+  state:{type:String},
 
   fonctionEtrangere:{type:String}, 
   nationaliteEtrangere: {type:String},
